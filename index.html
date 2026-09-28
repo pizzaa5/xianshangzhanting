@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="宁波财经学院艺术设计学院「设计·产教·未来」产教研成果展线上展厅">
+<title>设计·产教·未来 · 线上展厅</title>
+<style>
+/* ===== 视觉体系(取自实施方案 6.1)=====
+   主色 朱红 #9E2B25 / 墨黑 #1A1A1A / 宣纸白 #F4EFE6 / 靛青 #2B4C7E / 细金线 #C9A063 */
+:root{
+  --red:#9E2B25; --ink:#1A1A1A; --paper:#F4EFE6; --card:#FBF7EF;
+  --indigo:#2B4C7E; --gold:#C9A063; --mut:#7A6F63;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+#view{flex:1}
+.serif{font-family:"STKaiti","KaiTi","Kaiti SC","FangSong","SimSun",serif}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+
+/* ===== 顶栏 ===== */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(244,239,230,.95);
+  border-bottom:1px solid rgba(201,160,99,.4)}
+.topbar .wrap{display:flex;align-items:center;gap:10px;height:52px}
+.topbar .brand{font-weight:600;letter-spacing:2px;font-size:15px;cursor:pointer}
+.topbar .spacer{flex:1}
+.topbar button{background:none;border:1px solid var(--gold);color:var(--ink);
+  padding:5px 14px;border-radius:4px;font-size:14px;cursor:pointer}
+.topbar .back{color:var(--red);border:none;font-size:15px;padding:5px 4px}
+
+/* ===== 首页 · 序厅 ===== */
+.hero{background:var(--red);color:#F8F3E9;text-align:center;padding:46px 20px 40px}
+.hero .kick{font-size:13px;letter-spacing:6px;color:#E8C9A8}
+.hero h1{font-size:clamp(30px,7vw,44px);letter-spacing:8px;margin:12px 0 4px;font-weight:500}
+.hero .sub{font-size:14px;color:#EDD9C4}
+.hero .info{margin-top:14px;font-size:12px;color:#E3C9AF;letter-spacing:1px}
+.goldline{width:64px;height:1px;background:var(--gold);margin:18px auto}
+
+.notice{margin:16px 0 0;padding:10px 14px;border:1px dashed var(--gold);border-radius:8px;
+  font-size:12px;color:var(--mut);text-align:center}
+
+.sec-title{display:flex;align-items:center;gap:10px;margin:30px 0 14px;font-size:17px;font-weight:600}
+.sec-title::before{content:"";width:4px;height:18px;background:var(--red)}
+.sec-title .more{flex:1;text-align:right;font-size:13px;font-weight:400;color:var(--mut)}
+
+.foreword{font-size:14.5px;color:#3B342C;text-indent:2em}
+
+/* 数据导览 */
+.data{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0 4px}
+.data .tile{background:var(--card);border:1px solid rgba(201,160,99,.45);border-radius:8px;
+  text-align:center;padding:18px 8px}
+.data .n{font-size:30px;font-weight:700;color:var(--red);letter-spacing:1px}
+.data .l{font-size:13px;color:var(--mut);margin-top:4px}
+
+/* 参观动线 */
+.route{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0}
+.route .node{background:var(--card);border:1px solid rgba(201,160,99,.5);border-radius:20px;
+  padding:4px 14px;font-size:13px}
+.route .node b{color:var(--red)}
+.route .arrow{color:var(--gold)}
+
+/* 展区导航 */
+.zones{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:8px 0 6px}
+.zone-card{background:var(--card);border:1px solid rgba(201,160,99,.45);border-radius:10px;
+  padding:20px 16px;display:block;transition:transform .15s}
+.zone-card:active{transform:scale(.98)}
+.zone-card .zchar{font-size:46px;line-height:1;color:var(--red)}
+.zone-card h3{margin:10px 0 4px;font-size:17px;font-weight:600}
+.zone-card p{font-size:12.5px;color:var(--mut)}
+.zone-card.end .zchar{color:var(--indigo)}
+
+/* ===== 展区页 ===== */
+.zone-head{padding:34px 0 10px;text-align:center}
+.zone-head .zchar{font-size:clamp(64px,16vw,96px);line-height:1.1;color:var(--red)}
+.zone-head h2{font-size:20px;letter-spacing:4px;margin-top:6px}
+.zone-head .zintro{font-size:13.5px;color:var(--mut);max-width:560px;margin:10px auto 0}
+.zone-head .meta{font-size:12px;color:var(--gold);margin-top:8px;letter-spacing:2px}
+
+/* 区块标题(细金线框) */
+.blk{border:1px solid rgba(201,160,99,.55);border-radius:10px;padding:18px 16px;margin:18px 0}
+.blk h3{font-size:16px;margin-bottom:4px}
+.blk .bintro{font-size:12.5px;color:var(--mut);margin-bottom:12px}
+
+/* 图片占位 */
+.ph{position:relative;background:linear-gradient(135deg,#EBE1CE,#F7F1E4 55%,#E6D9C2);
+  border:1px dashed var(--gold);border-radius:8px;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--mut);font-size:12.5px;text-align:center;padding:14px}
+.ph .big{font-size:clamp(52px,13vw,84px);color:var(--red);opacity:.85;line-height:1.15}
+.ph .cap{margin-top:8px;letter-spacing:1px;max-width:86%}
+.ph .tagline{position:absolute;top:8px;right:10px;font-size:11px;color:var(--gold)}
+.ph.sq{aspect-ratio:4/3}
+.ph.wide{aspect-ratio:21/9}
+.ph.tall{aspect-ratio:3/4}
+
+/* 内容卡片 */
+.cards{display:grid;gap:12px}
+.card{display:block;background:var(--card);border:1px solid rgba(201,160,99,.4);
+  border-radius:10px;padding:14px 16px}
+.card h4{font-size:15.5px;margin-bottom:4px;color:var(--ink)}
+.card .meta{font-size:12px;color:var(--gold);margin-bottom:6px;letter-spacing:1px}
+.card .desc{font-size:13.5px;color:#3B342C}
+.tags{margin-top:8px}
+.tag{display:inline-block;font-size:12px;color:var(--indigo);
+  border:1px solid rgba(43,76,126,.4);border-radius:20px;padding:1px 10px;margin:0 6px 4px 0}
+.quote{border-left:3px solid var(--gold);padding:2px 0 2px 14px;font-size:14px;color:#3B342C}
+
+/* ===== 作品详情页 ===== */
+.detail{padding:24px 0 10px}
+.detail .back{display:inline-block;color:var(--red);font-size:14px;margin-bottom:14px}
+.detail h2{font-size:20px;margin:14px 0 6px}
+.detail .dmeta{font-size:12.5px;color:var(--gold);letter-spacing:1px;margin-bottom:10px}
+.detail .ddesc{font-size:15px;color:#3B342C;margin:14px 0}
+.detail .qnote{margin-top:22px;padding:12px 14px;background:var(--card);
+  border:1px dashed var(--gold);border-radius:8px;font-size:12px;color:var(--mut)}
+
+/* ===== 尾厅 ===== */
+.end-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0}
+.end-tile{background:var(--card);border:1px solid rgba(201,160,99,.5);border-radius:10px;
+  padding:14px 10px;text-align:center}
+.end-tile .phbox{margin-bottom:10px}
+.end-tile .t{font-size:14px;font-weight:600}
+.end-tile .d{font-size:11.5px;color:var(--mut);margin-top:4px}
+.topic{text-align:center;margin:24px 0 6px;font-size:15px;color:var(--red);letter-spacing:1px}
+.thanks{text-align:center;font-size:12.5px;color:var(--mut);line-height:2.1}
+
+/* ===== 页脚 ===== */
+.footer{margin-top:44px;padding:24px 20px 30px;background:var(--ink);color:#B9AE9E;
+  font-size:12px;text-align:center;line-height:2.1}
+.footer .org{color:#E6DCCB;letter-spacing:2px}
+
+/* ===== 目录 ===== */
+#menu{position:fixed;inset:0;background:rgba(26,26,26,.45);z-index:99;display:none}
+#menu.open{display:block}
+#menu .panel{position:absolute;top:0;right:0;height:100%;width:min(78vw,300px);
+  background:var(--paper);padding:22px;overflow-y:auto;box-shadow:-4px 0 24px rgba(0,0,0,.15)}
+#menu .panel h3{font-size:16px;letter-spacing:2px;margin-bottom:6px}
+#menu .panel .msub{font-size:12px;color:var(--mut);margin-bottom:16px}
+#menu a.mlink{display:flex;align-items:center;gap:12px;padding:13px 6px;
+  border-bottom:1px solid rgba(201,160,99,.3);font-size:15px}
+#menu a.mlink .z{width:34px;height:34px;border:1px solid var(--gold);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;color:var(--red);font-size:19px}
+#menu a.mlink .t b{font-weight:600}
+#menu a.mlink .t span{display:block;font-size:11.5px;color:var(--mut)}
+#menu .close{margin-top:18px;width:100%;padding:10px;border:1px solid var(--gold);
+  background:none;border-radius:6px;font-size:14px;cursor:pointer}
+
+@media (min-width:720px){
+  .zones{grid-template-columns:repeat(3,1fr)}
+  .end-tiles{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="back" id="btn-back" style="display:none" href="#/">‹ 返回</a>
+    <span class="brand" id="brand">设计·产教·未来</span>
+    <span class="spacer"></span>
+    <button id="btn-menu">目录</button>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<footer class="footer">
+  <div class="org">主办:数字创意产业学院</div>
+  协同:实验中心 · 学科办 · 竞赛办<br>
+  宁波财经学院 艺术设计学院 © 2026<br>
+  线上展厅演示版 · 占位图片与示例文案将于 10 月 15 日定稿后替换
+</footer>
+
+<div id="menu">
+  <div class="panel">
+    <h3>线上展厅 · 目录</h3>
+    <div class="msub">2026.10.22 开展 · 信息楼一楼大厅</div>
+    <a class="mlink" href="#/"><span class="z serif">序</span><span class="t"><b>序厅 · 主题形象</b><span>主题墙 / 前言 / 数据导览 / 动线</span></span></a>
+    <a class="mlink" href="#/zone/a"><span class="z serif">融</span><span class="t"><b>A · 产教融合</b><span>合作版图 / 乡村服务 / 政企项目</span></span></a>
+    <a class="mlink" href="#/zone/b"><span class="z serif">创</span><span class="t"><b>B · 双轮驱动</b><span>工作室矩阵 / 研究所成果 / 转化</span></span></a>
+    <a class="mlink" href="#/zone/c"><span class="z serif">竞</span><span class="t"><b>C · 青春答卷</b><span>获奖纵览 / 高光奖项 / 作品精选</span></span></a>
+    <a class="mlink" href="#/zone/d"><span class="z serif">微</span><span class="t"><b>D · 新质赛道</b><span>微专业图谱 / 课程实录 / 出口数据</span></span></a>
+    <a class="mlink" href="#/end"><span class="z serif">回</span><span class="t"><b>E · 尾厅 · 未来回声</b><span>成果册 / 公众号 / 微专业报名</span></span></a>
+    <button class="close" onclick="toggleMenu(false)">关闭目录</button>
+  </div>
+</div>
+
+<script>
+/* ===== 数据(示例版 · 10.15 定稿后替换为真实资料)===== */
+var META = {
+  org:'宁波财经学院 · 艺术设计学院',
+  title:'设计·产教·未来',
+  sub:'—— 数字创意产业学院产教融合成果展(2023—2026)',
+  date:'2026.10.22 开展 · 信息楼一楼大厅 500㎡',
+  foreword:'宁波财经学院艺术设计学院以「产教融合、服务区域、课程建设」为主线,将近三年在人才培养、社会服务、学科研究与教学改革四条线上的真实产出,集中呈现为一次可视化、可计量、可传播的成果展。我们与谁合作、做了什么、产出了什么、培养了谁——请沿 S→A→B→C→D→E 动线,开始参观。',
+  nums:[['71','合作单位(家)'],['100','服务项目(项)'],['300','竞赛奖项(项)'],['2000','受益学生(人次)']]
+};
+
+var ZONES = {
+  a:{char:'融',name:'产教融合',intro:'证明「产教融合不是口号」:有签约、有项目、有落地、有转化的闭环。',
+    sections:[
+    {id:'a1',t:'A1 合作版图',kind:'image',cap:'校—政—企—村四类合作对象分布地图(宁波市域,20—40 个标注)'},
+    {id:'a2',t:'A2 未来乡村服务',kind:'list',intro:'以北溪村等为重点的乡村全案:品牌识别、空间提升、文创产品、节庆活动、运营转化。',items:[
+      {id:'a2-1',t:'北溪村品牌全案',meta:'未来乡村 · 品牌识别',desc:'北溪村整村品牌系统:标识、导视、包装与节庆活动一体化设计,并伴随落地运营。(示例文案,定稿后替换)',tags:['未来乡村','品牌识别','落地运营']},
+      {id:'a2-2',t:'乡村空间提升项目',meta:'未来乡村 · 空间设计',desc:'结合村庄公共空间现状的改造提升方案,含改造前后对比落地照。(示例文案)',tags:['空间提升','前后对比']},
+      {id:'a2-3',t:'乡村文创产品开发',meta:'未来乡村 · 文创产品',desc:'地方风物转化为文创产品线,含打样与量产记录。(示例文案)',tags:['文创','打样']}
+    ]},
+    {id:'a3',t:'A3 政企委托项目',kind:'list',intro:'横向课题、政府委托、企业命题的真实项目成果。',items:[
+      {id:'a3-1',t:'企业命题项目(示例)',meta:'横向课题 · 2025',desc:'项目名称/委托方/经费/周期/成果形式/转化效益,由资料组按提交表填报。(示例)',tags:['横向课题']},
+      {id:'a3-2',t:'政府委托项目(示例)',meta:'政府委托 · 2026',desc:'政府委托服务项目成果与落地成效。(示例)',tags:['政府委托']}
+    ]},
+    {id:'a4',t:'A4 三年合作数据看板',kind:'image',cap:'签约数 / 到款额 / 服务人次 / 媒体曝光 / 带动就业',ratio:'wide'},
+    {id:'a5',t:'A5 实物陈列',kind:'image',cap:'落地文创品、包装样、出版物等实物(15—25 件)',ratio:'tall'}
+  ]},
+  b:{char:'创',name:'双轮驱动',intro:'教学端(工作室)与研究端(研究所)双轮互哺的运行结构。',
+    sections:[
+    {id:'b1',t:'B1 工作室矩阵',kind:'image',cap:'全院工作室一览:名称 / 负责人 / 方向 / 入驻学生数 / 年度产出',ratio:'wide'},
+    {id:'b2',t:'B2 工作室年度代表作',kind:'list',intro:'2026 年度每个工作室限报 2—3 件,宁精勿滥。',items:[
+      {id:'b2-1',t:'工作室年度代表作(示例)',meta:'工作室 · 2026',desc:'作品说明 60 字以内:主题、手法与成果形态。(示例)',tags:['2026']},
+      {id:'b2-2',t:'工作室年度代表作(示例)',meta:'工作室 · 2026',desc:'作品说明 60 字以内。(示例)',tags:['2026']},
+      {id:'b2-3',t:'工作室年度代表作(示例)',meta:'工作室 · 2026',desc:'作品说明 60 字以内。(示例)',tags:['2026']}
+    ]},
+    {id:'b3',t:'B3 研究所成果',kind:'list',intro:'论文、著作、专利/软著、省部级课题、获奖、行业标准。',items:[
+      {id:'b3-1',t:'研究所成果清单(示例)',meta:'学科办 · 2026',desc:'年度成果清单与证明材料扫描件,由学科办按提交表填报。(示例)',tags:['论文','专利','课题']}
+    ]},
+    {id:'b4',t:'B4 研究转化案例',kind:'list',intro:'研究→教学 / 研究→产业 的转化实例。',items:[
+      {id:'b4-1',t:'转化案例(示例)',meta:'研究 → 产业',desc:'课题成果如何转化为教学案例或产业应用,含转化前后对照。(示例)',tags:['转化']}
+    ]},
+    {id:'b5',t:'B5 实物与样书',kind:'image',cap:'出版著作、专利证书、样刊、设计打样(10—20 件)',ratio:'tall'}
+  ]},
+  c:{char:'竞',name:'青春答卷',intro:'数据曲线证明竞赛成绩逐年上升,作品本体证明教学质量的真实水位。',
+    sections:[
+    {id:'c1',t:'C1 三年获奖纵览',kind:'image',cap:'2023—2026 获奖总数 / 国家级·省级·厅市级分布 / 年度增长曲线',ratio:'wide'},
+    {id:'c2',t:'C2 高光奖项',kind:'list',intro:'国家级一等奖及 IF / 红点 / 大广赛 / 未来设计师 / 米兰设计周等重量级奖项。',items:[
+      {id:'c2-1',t:'未来设计师大赛 · 全国一等奖',meta:'国家级 · 示例',desc:'高光奖项条目:赛事、等级、时间、参赛学生。(示例)',tags:['国家级','一等奖']},
+      {id:'c2-2',t:'全国大学生广告艺术大赛',meta:'国家级 · 示例',desc:'高光奖项条目。(示例)',tags:['国家级']},
+      {id:'c2-3',t:'米兰设计周',meta:'国际级 · 示例',desc:'高光奖项条目。(示例)',tags:['国际级']}
+    ]},
+    {id:'c3',t:'C3 作品精选',kind:'list',intro:'每件作品:主视觉 1 张、细节图 2—3 张、60 字说明、指导教师、获奖信息;线下作品标签配独立二维码,扫码直达本页详情。',items:[
+      {id:'c3-1',t:'获奖作品(示例)',meta:'指导教师 ××× · 2026',desc:'60 字作品说明:主题、手法与成果。(示例,定稿后替换为真实作品)',tags:['一等奖']},
+      {id:'c3-2',t:'获奖作品(示例)',meta:'指导教师 ××× · 2025',desc:'60 字作品说明。(示例)',tags:['二等奖']},
+      {id:'c3-3',t:'获奖作品(示例)',meta:'指导教师 ××× · 2026',desc:'60 字作品说明。(示例)',tags:['入围']}
+    ]},
+    {id:'c4',t:'C4 证书 / 奖杯墙',kind:'image',cap:'证书复制件与奖杯实物,统一尺寸扫描输出',ratio:'tall'},
+    {id:'c5',t:'C5 成长故事',kind:'list',intro:'获奖学生「从课堂到领奖台」短访:每人 100 字 + 照片 1 张 + 一句话寄语。',items:[
+      {id:'c5-1',t:'学生成长故事(示例)',meta:'一句话寄语:×××',desc:'100 字成长短访,课堂—备赛—领奖台的完整路径。(示例)',tags:['成长故事']},
+      {id:'c5-2',t:'学生成长故事(示例)',meta:'一句话寄语:×××',desc:'100 字成长短访。(示例)',tags:['成长故事']}
+    ]}
+  ]},
+  d:{char:'微',name:'新质赛道',intro:'讲清「微专业是什么、谁来学、学得怎样、出路在哪」。',
+    sections:[
+    {id:'d1',t:'D1 微专业图谱',kind:'image',cap:'已开设微专业清单:课程地图 / 学分结构 / 师资构成',ratio:'wide'},
+    {id:'d2',t:'D2 课程实录',kind:'image',cap:'真实课堂、企业导师授课、项目化教学场景',ratio:'tall'},
+    {id:'d3',t:'D3 学习成果',kind:'list',intro:'每个微专业 3—5 件代表成果。',items:[
+      {id:'d3-1',t:'学员作品 / 结业项目(示例)',meta:'微专业 · 2026',desc:'学员代表作品与结业项目说明。(示例)',tags:['结业项目']},
+      {id:'d3-2',t:'微证书样本(示例)',meta:'微专业 · 2026',desc:'微证书样式与授予记录。(示例)',tags:['微证书']}
+    ]},
+    {id:'d4',t:'D4 出口数据',kind:'image',cap:'修读人数 / 结业率 / 对口实习·就业·升学去向',ratio:'wide'},
+    {id:'d5',t:'D5 学员一句话',kind:'quotes',intro:'手写体卡片墙的线上版,每人一句 20 字以内。',items:[
+      {id:'d5-1',t:'「一句话推荐(示例)」',meta:'学员 · 微专业',desc:'20 字以内的一句话推荐。(示例)'},
+      {id:'d5-2',t:'「一句话推荐(示例)」',meta:'学员 · 微专业',desc:'20 字以内的一句话推荐。(示例)'}
+    ]}
+  ]}
+};
+
+var END_TILES = [
+  {t:'电子成果册下载',d:'开展后一周内上线(全文 PDF)',tag:'待上线'},
+  {t:'学院公众号',d:'展览动态与专题推文',tag:'待定稿'},
+  {t:'微专业报名',d:'招生与报名通道',tag:'待定稿'}
+];
+
+/* ===== 工具 ===== */
+function el(id){return document.getElementById(id)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function ph(zchar,cap,ratio){
+  ratio = ratio || 'sq';
+  var cls = (ratio==='wide')?'wide':((ratio==='tall')?'tall':'sq');
+  return '<div class="ph '+cls+'"><span class="tagline">图片占位</span>'+
+    '<span class="big serif">'+zchar+'</span><span class="cap">'+esc(cap)+'</span></div>';
+}
+function tagsHTML(tags){
+  if(!tags||!tags.length) return '';
+  return '<div class="tags">'+tags.map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('')+'</div>';
+}
+
+/* ===== 视图 ===== */
+function viewHome(){
+  var nums = META.nums.map(function(n){
+    return '<div class="tile"><div class="n">'+n[0]+'</div><div class="l">'+n[1]+'</div></div>';
+  }).join('');
+  var route = [['序','序厅'],['融','产教融合'],['创','双轮驱动'],['竞','青春答卷'],['微','新质赛道'],['回','尾厅']]
+    .map(function(r,i){return (i?'<span class="arrow">→</span>':'')+'<span class="node"><b class="serif">'+r[0]+'</b> '+r[1]+'</span>'}).join('');
+  var cards = ['a','b','c','d'].map(function(k){
+    var z = ZONES[k];
+    return '<a class="zone-card" href="#/zone/'+k+'"><div class="zchar serif">'+z.char+'</div>'+
+      '<h3>'+z.char+' · '+z.name+'</h3><p>'+esc(z.intro)+'</p></a>';
+  }).join('');
+  return ''+
+  '<section class="hero">'+
+    '<div class="kick">宁波财经学院 · 艺术设计学院</div>'+
+    '<h1 class="serif">'+META.title+'</h1>'+
+    '<div class="goldline"></div>'+
+    '<div class="sub">'+esc(META.sub)+'</div>'+
+    '<div class="info">'+META.date+'</div>'+
+  '</section>'+
+  '<div class="wrap">'+
+    '<div class="notice">线上展厅演示版:图片为占位图、文案为示例,10 月 15 日内容定稿后整体替换为正式资料</div>'+
+    '<div class="sec-title">前言</div>'+
+    '<p class="foreword">'+esc(META.foreword)+'</p>'+
+    '<div class="sec-title">数据导览</div>'+
+    '<div class="data">'+nums+'</div>'+
+    '<div class="sec-title">参观动线</div>'+
+    '<div class="route">'+route+'</div>'+
+    '<div class="sec-title">展区导航</div>'+
+    '<div class="zones">'+cards+
+      '<a class="zone-card end" href="#/end"><div class="zchar serif">回</div>'+
+      '<h3>E · 尾厅 · 未来回声</h3><p>成果册下载 / 公众号 / 微专业报名 / 留言合影</p></a>'+
+    '</div>'+
+  '</div>';
+}
+
+function viewZone(k){
+  var z = ZONES[k];
+  var blocks = z.sections.map(function(s){
+    var body;
+    if(s.kind==='image'){ body = ph(z.char, s.cap, s.ratio); }
+    else if(s.kind==='quotes'){ body = '<div class="cards">'+s.items.map(function(it){
+        return '<div class="card quote"><div class="meta">'+esc(it.meta)+'</div>'+
+          '<h4>'+esc(it.t)+'</h4><div class="desc">'+esc(it.desc)+'</div></div>';
+      }).join('')+'</div>'; }
+    else { body = '<div class="cards">'+s.items.map(function(it){
+        return '<a class="card" href="#/item/'+k+'/'+it.id+'">'+
+          '<div class="meta">'+esc(it.meta)+'</div><h4>'+esc(it.t)+'</h4>'+
+          '<div class="desc">'+esc(it.desc)+'</div>'+tagsHTML(it.tags)+'</a>';
+      }).join('')+'</div>'; }
+    return '<div class="blk"><h3>'+esc(s.t)+'</h3>'+
+      (s.intro?'<div class="bintro">'+esc(s.intro)+'</div>':'')+body+'</div>';
+  }).join('');
+  return ''+
+  '<div class="zone-head">'+
+    '<div class="zchar serif">'+z.char+'</div>'+
+    '<h2>'+z.char+' · '+z.name+'</h2>'+
+    '<div class="meta">展区 '+k.toUpperCase()+'</div>'+
+    '<div class="zintro">'+esc(z.intro)+'</div>'+
+  '</div>'+
+  '<div class="wrap">'+blocks+'</div>';
+}
+
+function viewItem(k,id){
+  var z = ZONES[k], item=null, sec=null;
+  z.sections.forEach(function(s){ s.items && s.items.forEach(function(it){ if(it.id===id){item=it;sec=s;} }); });
+  if(!item) return viewHome();
+  return '<div class="wrap detail">'+
+    '<a class="back" href="#/zone/'+k+'">‹ 返回 '+z.char+' · '+z.name+' 展区</a>'+
+    ph(z.char, item.t, 'tall')+
+    '<h2>'+esc(item.t)+'</h2>'+
+    '<div class="dmeta">'+esc(sec.t)+' · '+esc(item.meta)+'</div>'+
+    tagsHTML(item.tags)+
+    '<div class="ddesc">'+esc(item.desc)+'</div>'+
+    '<div class="qnote">上线后本页拥有独立二维码:线下作品标签、展板二维码墙扫码直达本详情页(对应实施方案 C3「每件作品配二维码」)。</div>'+
+  '</div>';
+}
+
+function viewEnd(){
+  var tiles = END_TILES.map(function(t){
+    return '<div class="end-tile"><div class="phbox">'+ph('码',t.tag)+'</div>'+
+      '<div class="t">'+esc(t.t)+'</div><div class="d">'+esc(t.d)+'</div></div>';
+  }).join('');
+  return ''+
+  '<div class="zone-head">'+
+    '<div class="zchar serif" style="color:var(--indigo)">回</div>'+
+    '<h2>E · 尾厅 · 未来回声</h2>'+
+    '<div class="zintro">总数据回流、留言互动、合影打卡与线上三码入口——出口前最后一站。</div>'+
+  '</div>'+
+  '<div class="wrap">'+
+    '<div class="blk"><h3>线上三码</h3><div class="bintro">对应线下尾厅二维码墙,扫码直达。</div>'+
+      '<div class="end-tiles">'+tiles+'</div></div>'+
+    '<div class="blk"><h3>互动话题</h3>'+
+      '<div class="topic"># 设计产教未来 #</div>'+
+      '<div class="bintro" style="text-align:center">「我眼中的设计未来」一句话征集 · 合影打卡 · 便签墙</div></div>'+
+    '<div class="blk"><h3>致谢</h3><div class="thanks">'+
+      '主办:数字创意产业学院<br>协同:实验中心 · 学科办 · 竞赛办<br>'+
+      '特别致谢:合作单位、政府、企业与乡村伙伴(名单待定稿)</div></div>'+
+  '</div>';
+}
+
+/* ===== 路由 ===== */
+function render(){
+  var h = (location.hash||'').replace(/^#\/?/,'');
+  var p = h.split('/').filter(Boolean);
+  var html, isHome=false;
+  if(!p.length){ html=viewHome(); isHome=true; }
+  else if(p[0]==='zone' && ZONES[p[1]]){ html=viewZone(p[1]); }
+  else if(p[0]==='item' && ZONES[p[1]] && p[2]){ html=viewItem(p[1],p[2]); }
+  else if(p[0]==='end'){ html=viewEnd(); }
+  else { html=viewHome(); isHome=true; }
+  el('view').innerHTML = html;
+  el('btn-back').style.display = isHome ? 'none' : 'inline-block';
+  window.scrollTo(0,0);
+}
+
+function toggleMenu(open){
+  el('menu').className = open ? 'open' : '';
+}
+
+el('btn-menu').onclick = function(){ toggleMenu(true); };
+el('brand').onclick = function(){ location.hash = '#/'; toggleMenu(false); };
+window.addEventListener('hashchange', function(){ toggleMenu(false); render(); });
+render();
+</script>
+</body>
+</html>
