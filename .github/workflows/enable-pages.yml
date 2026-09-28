@@ -1,0 +1,20 @@
+name: enable-pages
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  enable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable Pages via API
+        run: |
+          curl -s -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
+            -d '{"build_type":"legacy","source":{"branch":"master","path":"/"}}' \
+            https://api.github.com/repos/pizzaa5/xianshangzhanting/pages
